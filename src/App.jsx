@@ -14,6 +14,21 @@ export const App = () => {
     getRecords();
   }, []);
 
+  const [totalTime, setTotalTime] = useState(0);
+  useEffect(() => {
+    const getRecords = async () => {
+      const records = await getAllRecords();
+      if (records.length > 0) {
+        const time = records.map((record) => record.time);
+        const total = time.reduce((a, b) => {
+          return a + b, 0;
+        });
+        setTotalTime(total);
+      }
+    };
+    getRecords();
+  }, [records]);
+
   const [inputTitle, setInputTitle] = useState("");
   const onChangeTitle = (event) => setInputTitle(event.target.value);
   const [inputTime, setInputTime] = useState(0);
@@ -35,17 +50,6 @@ export const App = () => {
       setInputTime(0);
     }
   };
-
-  const [totalTime, setTotalTime] = useState(0);
-  useEffect(() => {
-    if (records.length > 0) {
-      const time = records.map((user) => user.time);
-      const total = time.reduce((a, b) => {
-        return a + b, 0;
-      });
-      setTotalTime(total);
-    }
-  }, [records]);
 
   return (
     <>
