@@ -9,7 +9,6 @@ export const App = () => {
     const getRecords = async () => {
       const records = await getAllRecords();
       setRecords(records);
-      console.log(records);
     };
     getRecords();
   }, []);
