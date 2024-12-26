@@ -6,3 +6,13 @@ export const getAllRecords = async () => {
   }
   return data;
 };
+
+export const addRecords = async (title, time) => {
+  const { data, error } = await supabase
+    .from("study-record")
+    .insert({ title: title, time: time });
+  if (error) {
+    console.error("Error:", error.message);
+  }
+  return data;
+};

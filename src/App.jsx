@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { getAllRecords } from "./utils/supabaseFunctions";
+import { addRecords, getAllRecords } from "./utils/supabaseFunctions";
 
 export const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [records, setRecords] = useState([]);
-
   useEffect(() => {
+    // 最初のデータを取得
     const getRecords = async () => {
       const records = await getAllRecords();
       setRecords(records);
@@ -15,6 +15,7 @@ export const App = () => {
     getRecords();
   }, []);
 
+  // 学習の合計時間
   const [totalTime, setTotalTime] = useState(0);
   useEffect(() => {
     const time = records.map((record) => Number(record.time));
@@ -22,13 +23,13 @@ export const App = () => {
     setTotalTime(total);
   }, [records]);
 
+  // データを追加
   const [inputTitle, setInputTitle] = useState("");
   const onChangeTitle = (event) => setInputTitle(event.target.value);
   const [inputTime, setInputTime] = useState(0);
   const onChangeTime = (event) => setInputTime(event.target.value);
   const [error, setError] = useState();
-  const onClickAddRecord = () => {
-    const inputRecords = { title: inputTitle, time: Number(inputTime) };
+  const onClickAddRecord = async () => {
     if (!inputTitle && inputTime === 0) {
       setError("入力がありません");
     } else if (!inputTitle) {
@@ -37,8 +38,14 @@ export const App = () => {
       setError("学習時間を入れてください");
     } else {
       setError("");
-      const newRecords = [...records, inputRecords];
-      setRecords(newRecords);
+      // supabaseに追加
+      await addRecords(inputTitle, inputTime);
+
+      // リストに追加
+      const records = await getAllRecords();
+      setRecords(records);
+
+      // inputをリセット
       setInputTitle("");
       setInputTime(0);
     }
