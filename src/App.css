@@ -5,3 +5,16 @@ li {
 body {
   margin: 10px;
 }
+
+.stdylist--wrap>li+li {
+  margin-top: 20px;
+}
+
+.studylist {
+  display: flex;
+  align-items: center;
+}
+
+.studylist>button {
+  margin-left: 25px;
+}

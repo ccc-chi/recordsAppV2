@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { addRecords, getAllRecords } from "./utils/supabaseFunctions";
+import {
+  addRecords,
+  deleteRecords,
+  getAllRecords,
+} from "./utils/supabaseFunctions";
 
 export const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -51,6 +55,13 @@ export const App = () => {
     }
   };
 
+  // データを削除
+  const onClickDeleate = async (id) => {
+    await deleteRecords(id);
+    const records = await getAllRecords();
+    setRecords(records);
+  };
+
   if (isLoading) {
     return <p style={{ margin: "0 20px" }}>Loading...</p>;
   } else {
@@ -59,11 +70,11 @@ export const App = () => {
         <h1>学習記録一覧</h1>
         <div className="">
           <div>
-            <span>学習内容</span>
+            <span>内容</span>
             <input type="text" value={inputTitle} onChange={onChangeTitle} />
           </div>
           <div>
-            <span>学習時間</span>
+            <span>時間</span>
             <input
               type="number"
               min={0}
@@ -84,13 +95,16 @@ export const App = () => {
           </div>
         </div>
         <div className="">
-          <ul>
-            {records.map((record, id) => {
+          <ul className="stdylist--wrap">
+            {records.map((record) => {
               return (
-                <li key={id}>
+                <li className="studylist" key={record.id}>
                   <p>
                     {record.title}　{record.time}時間
                   </p>
+                  <button onClick={() => onClickDeleate(record.id)}>
+                    削除
+                  </button>
                 </li>
               );
             })}
