@@ -50,7 +50,7 @@ jobs:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           FIREBASE_CLI_EXPERIMENTS: webframeworks
 
-      # サービスアカウントの秘密鍵を削除（セキュリティ対策）
+      # サービスアカウントの秘密鍵を削除（セキュリティ対策
       - name: delete GOOGLE_APPLICATION_CREDENTIALS
         run: rm $GOOGLE_APPLICATION_CREDENTIALS
         if: ${{ always() }}
