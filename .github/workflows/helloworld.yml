@@ -39,18 +39,14 @@ jobs:
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ github.workspace }}/firebase-key.json" >> $GITHUB_ENV
 
       # Firebaseプロジェクトを選択
-      - name: change space
-        run: ./node_modules/.bin/firebase use ${{ secrets.FIREBASE_PROJECT_ID }}
+      - name: Use Firebase project
+        run: ./node_modules/.bin/firebase use --add ${{ secrets.FIREBASE_PROJECT_ID }}
 
       # Firebase Hostingにデプロイ
       - name: Deploy to Firebase Hosting
-        run: |
-          ./node_modules/.bin/firebase deploy
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          FIREBASE_CLI_EXPERIMENTS: webframeworks
+        run: ./node_modules/.bin/firebase deploy --only hosting
 
       # サービスアカウントの秘密鍵を削除（セキュリティ対策
-      - name: delete GOOGLE_APPLICATION_CREDENTIALS
+      - name: Delete service account key
         run: rm $GOOGLE_APPLICATION_CREDENTIALS
         if: ${{ always() }}
