@@ -67,7 +67,7 @@ export const App = () => {
   } else {
     return (
       <>
-        <h1>学習記録一覧</h1>
+        <h1>-- 学習記録一覧 --</h1>
         <div className="">
           <div>
             <span>内容</span>
