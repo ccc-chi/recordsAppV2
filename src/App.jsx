@@ -67,7 +67,7 @@ export const App = () => {
   } else {
     return (
       <>
-        <h1>-- 学習記録一覧 --</h1>
+        <h1 data-testid="title">学習記録一覧</h1>
         <div className="">
           <div>
             <span>内容</span>
@@ -95,6 +95,10 @@ export const App = () => {
           </div>
         </div>
         <div className="">
+          {error && <p data-testid="error">{error}</p>}
+          <button data-testid="addButton" onClick={onClickAddRecord}>
+            登録
+          </button>
           <ul className="stdylist--wrap">
             {records.map((record) => {
               return (
@@ -109,8 +113,6 @@ export const App = () => {
               );
             })}
           </ul>
-          <button onClick={onClickAddRecord}>登録</button>
-          {error && <p>{error}</p>}
           <p>合計時間：{totalTime}/1000h</p>
         </div>
       </>
