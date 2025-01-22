@@ -4,7 +4,6 @@ import { render, screen, waitFor, within } from "@testing-library/react";
 import { App } from "../App";
 import userEvent from "@testing-library/user-event";
 
-
 describe("App Test", () => {
   test("タイトルが表示されている", async () => {
     render(<App />);
