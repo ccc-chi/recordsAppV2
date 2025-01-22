@@ -47,9 +47,6 @@ jobs:
       # テストを実行
       - name: Run tests
         run: npm test
-        env:
-          SUPABASE_URL: ${{secrets.VITE_SUPABASE_URL}}
-          SUPABASE_ANON_KEY: ${{secrets.VITE_SUPABASE_ANON_KEY}}
 
       # サービスアカウントの秘密鍵を削除（セキュリティ対策
       - name: Delete service account key

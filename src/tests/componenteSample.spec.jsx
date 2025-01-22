@@ -4,6 +4,17 @@ import { render, screen, waitFor, within } from "@testing-library/react";
 import { App } from "../App";
 import userEvent from "@testing-library/user-event";
 
+// APIをモック
+jest.mock("@supabase/supabase-js", () => {
+  return {
+    createClient: jest.fn(() => ({
+      from: jest.fn(() => ({
+        select: jest.fn(() => Promise.resolve({ data: [], error: null })),
+      })),
+    })),
+  };
+});
+
 describe("App Test", () => {
   test("タイトルが表示されている", async () => {
     render(<App />);
