@@ -50,3 +50,7 @@ jobs:
       - name: Delete service account key
         run: rm $GOOGLE_APPLICATION_CREDENTIALS
         if: ${{ always() }}
+
+      # テストを実行
+      - name: Run tests
+        run: npm test
