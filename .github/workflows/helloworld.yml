@@ -1,8 +1,6 @@
 name: Build and Deploy React App
 
-on:
-  push:
-    branches: ["main"]
+on: pull_request
 
 jobs:
   deploy:
@@ -46,11 +44,15 @@ jobs:
       - name: Deploy to Firebase Hosting
         run: ./node_modules/.bin/firebase deploy --only hosting
 
+      # テストを実行
+      - name: Run tests
+        run: npm test
+        env:
+          # SupabaseのURLとキー
+          VITE_SUPABASE_URL: ${{secrets.VITE_SUPABASE_URL}}
+          VITE_SUPABASE_ANON_KEY: ${{secrets.VITE_SUPABASE_ANON_KEY}}
+
       # サービスアカウントの秘密鍵を削除（セキュリティ対策
       - name: Delete service account key
         run: rm $GOOGLE_APPLICATION_CREDENTIALS
         if: ${{ always() }}
-
-      # テストを実行
-      - name: Run tests
-        run: npm test
