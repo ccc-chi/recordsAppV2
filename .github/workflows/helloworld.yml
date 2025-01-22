@@ -46,11 +46,11 @@ jobs:
       - name: Deploy to Firebase Hosting
         run: ./node_modules/.bin/firebase deploy --only hosting
 
+      # テストを実行
+      - name: Run tests
+        run: npm test
+
       # サービスアカウントの秘密鍵を削除（セキュリティ対策
       - name: Delete service account key
         run: rm $GOOGLE_APPLICATION_CREDENTIALS
         if: ${{ always() }}
-
-      # テストを実行
-      - name: Run tests
-        run: npm test
