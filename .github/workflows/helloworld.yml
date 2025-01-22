@@ -47,6 +47,10 @@ jobs:
       # テストを実行
       - name: Run tests
         run: npm test
+        env:
+          # ビルド時に必要な環境変数を設定（SupabaseのURLとキー）
+          VITE_SUPABASE_URL: ${{secrets.VITE_SUPABASE_URL}}
+          VITE_SUPABASE_ANON_KEY: ${{secrets.VITE_SUPABASE_ANON_KEY}}
 
       # サービスアカウントの秘密鍵を削除（セキュリティ対策
       - name: Delete service account key

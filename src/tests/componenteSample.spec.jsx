@@ -4,16 +4,6 @@ import { render, screen, waitFor, within } from "@testing-library/react";
 import { App } from "../App";
 import userEvent from "@testing-library/user-event";
 
-// APIをモック
-// jest.mock("@supabase/supabase-js", () => ({
-//   createClient: jest.fn(() => ({
-//     from: jest.fn(() => ({
-//       select: jest.fn(() => Promise.resolve({ data: [], error: null })),
-//       insert: jest.fn(() => Promise.resolve({ data: null, error: null })),
-//       delete: jest.fn(() => Promise.resolve({ data: null, error: null })),
-//     })),
-//   })),
-// }));
 
 describe("App Test", () => {
   test("タイトルが表示されている", async () => {
@@ -56,7 +46,6 @@ describe("App Test", () => {
 
   test("記録を削除できる", async () => {
     render(<App />);
-    const supabase = createClient();
     const user = userEvent.setup();
 
     // テストで登録したものを削除する
